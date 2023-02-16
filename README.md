@@ -3,6 +3,8 @@
 This is a full stack Web App Called my-unsplash you can save your images here after being authenticated and delete them as well.
 
 # Live At :
+
+clarification : the first request to the server will take time because of the limitation of the free hosting service (in 15 min of inactivity it spins down)
 https://myunsplashapp-jor1.onrender.com
 
 # In Case You Wanna Test It :
