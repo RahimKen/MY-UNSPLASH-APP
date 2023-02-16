@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/MY-UNSPLASH-APP/static/css/main.19479d95.css",
+    "main.js": "/MY-UNSPLASH-APP/static/js/main.b3a08bad.js",
+    "static/media/my_unsplash_logo.svg": "/MY-UNSPLASH-APP/static/media/my_unsplash_logo.c888ca72341518f28eb4c46adc4836f2.svg",
+    "index.html": "/MY-UNSPLASH-APP/index.html",
+    "main.19479d95.css.map": "/MY-UNSPLASH-APP/static/css/main.19479d95.css.map",
+    "main.b3a08bad.js.map": "/MY-UNSPLASH-APP/static/js/main.b3a08bad.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.19479d95.css",
+    "static/js/main.b3a08bad.js"
+  ]
+}
