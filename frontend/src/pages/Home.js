@@ -17,9 +17,10 @@ const Home = () => {
 
 
   useEffect(() => {
+    const AbortConst = new AbortController();
     
     const fetchImages = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/image/get`,{
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/image/get`,{ signal : AbortConst.signal ,
         headers : {
           'Authorization' : `Bearer ${user.token}`
         }
@@ -33,6 +34,8 @@ const Home = () => {
     if(user){
       fetchImages()
     }
+
+    return () => AbortConst.abort()
     
   }, [dispatch , user])
   
@@ -43,8 +46,8 @@ const Home = () => {
        {Images !== undefined ? Images!==null ? Images.length!==0 ? Images.map((image) => (
                                 <ImageDetails key={image._id} setDeleteOn={setDeleteOn} image={image} setImg={setImg} /> )) 
                                 : <p className='font-semibold'>There is no images to show !</p>  
-                                : <p className='font-semibold'>There is no images to show !</p> 
-                                : <p className='font-semibold'>There is no images to show !</p> 
+                                : <p className='font-semibold'>Loading ...</p> 
+                                : <p className='font-semibold'>Loading ...</p> 
                             }
       </div>
       {formOn && <ImageForm setFormOn={setFormOn}/>}

@@ -6,24 +6,32 @@ import { useImagesContext } from "../hooks/useImagesContext"
 const DeleteImage = ({setDeleteOn , img}) => {
 
   const [password , setPassword] = useState('')
+  const [pending , setPending] = useState(false)
   const [error , setError] = useState(null)
   const {user} = useAuthContext()
   const {dispatch} = useImagesContext()
 
   const handleCancel = () => {
     setDeleteOn(false)
+    setPending(false)
     setPassword('')
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    const AbortConst = new AbortController();
+    setPending(true)
     setError(null)
 
     if(!user){
       setError('You Must Be Logged In')
+      setPending(false)
       return
     }
-    const res = await fetch(`${process.env.REACT_APP_API_URL}/image/delete/${img}`, {
+    const timmy = setTimeout(()=>{AbortConst.abort()
+      setPending(false)
+      setError("Your connection is too slow please try again !")} , 5000)
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/image/delete/${img}`, { signal : AbortConst.signal ,
       method : 'DELETE',
       body : JSON.stringify({password}),
       headers : {
@@ -31,13 +39,16 @@ const DeleteImage = ({setDeleteOn , img}) => {
         'Authorization' : `Bearer ${user.token}`
       }
     })
+    clearTimeout(timmy)
     const json = await res.json()
 
     if(!res.ok){
+      setPending(false)
       setError(json.error)
     }
     else{
       setPassword('')
+      setPending(false)
       setError(null)
       dispatch({type : "DELETE_IMAGE" , payload : json})
       setDeleteOn(false)
@@ -53,8 +64,8 @@ const DeleteImage = ({setDeleteOn , img}) => {
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="********" className="w-full border-[1px] border-solid rounded-md p-1.5 border-black bg-white "/>
         {error ? <p className="text-md p-2 text-rose-700 bg-rose-300 border-solid border-rose-700 rounded-md border-2">{error}</p> : null}
         <div className="flex justify-end mt-10 ">
-          <button onClick={handleCancel} className="mr-4 text-gray-500">Cancel</button>
-          <button  type="submit" className="bg-red font-semibold sm:px-4  sm:py-2 px-3 py-1.5 rounded-lg shadow-md md:mr-2 mr-1 text-white text-sm md:text-md hover:opacity-80 duration-300">Delete</button>
+          <button onClick={handleCancel} disabled={pending} className="mr-4 text-gray-500">Cancel</button>
+          <button  type="submit" className={`bg-red ${pending ? "opacity-70" : ""} font-semibold sm:px-4  sm:py-2 px-3 py-1.5 rounded-lg shadow-md md:mr-2 mr-1 text-white text-sm md:text-md hover:opacity-80 duration-300`} >Delete</button>
         </div>
        </form>
     </div>
