@@ -13,7 +13,7 @@ Password : 12345678
 Or Just Create An Account And Add Your Images
 
 
-## Screenhots
+# Screenhots
 ![App Screenshot](https://www.linkpicture.com/q/Capture-d-ecran_20230216_115800.png)
 
 ![App Screenshot](https://www.linkpicture.com/q/Capture-d-ecran_20230216_115720.png)
