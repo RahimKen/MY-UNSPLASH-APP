@@ -8,7 +8,9 @@ const userRouter = require('./routes/user')
 const imageRouter = require('./routes/image')
 
 //Middlwares
-app.use(cors())
+app.use(cors({
+    origin : "https://myunsplashapp-jor1.onrender.com"
+}))
 app.use(body_parser.json())
 app.use(morgan('dev'))
 
